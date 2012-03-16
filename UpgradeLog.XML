@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="ZPP Prototype V1">
+</Property><Property Name="Solution File" Value="E:\zpp\Zombie-Penguin-Pirates\ZPP Prototype V1.sln">
+</Property><Property Name="Date" Value="08 March 2012">
+</Property><Property Name="Time" Value="13:39 PM">
+</Property></Properties><Event ErrorLevel="0" Project="ZPP Prototype V1" Source="ZPP Prototype V1\ZPP Prototype V1.vcproj" Description="Converting project file 'E:\zpp\Zombie-Penguin-Pirates\ZPP Prototype V1\ZPP Prototype V1.vcproj'.">
+</Event><Event ErrorLevel="1" Project="ZPP Prototype V1" Source="ZPP Prototype V1\ZPP Prototype V1.vcproj" Description="VCWebServiceProxyGeneratorTool is no longer supported. The tool has been removed from your project settings.">
+</Event><Event ErrorLevel="0" Project="ZPP Prototype V1" Source="ZPP Prototype V1\ZPP Prototype V1.vcproj" Description="Done converting to new project file 'E:\zpp\Zombie-Penguin-Pirates\ZPP Prototype V1\ZPP Prototype V1.vcxproj'.">
+</Event><Event ErrorLevel="3" Project="ZPP Prototype V1" Source="ZPP Prototype V1\ZPP Prototype V1.vcproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="ZPP Prototype V1.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="ZPP Prototype V1.sln" Description="Converted">
+</Event></UpgradeLog>

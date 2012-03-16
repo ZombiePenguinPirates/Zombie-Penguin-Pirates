@@ -3,7 +3,7 @@
 
 #include "main.h"
 
-enum state {main_menu, new_game, load_game, settings, tutorials, quit, quit_for_real, in_game_pause_quit, in_game_pause};
+enum state {main_menu, new_game, load_game, settings, tutorials, quit, quit_for_real, in_game_pause_quit, in_game_pause, GameOver};
 
 class INTERFACEOBJECT
 {

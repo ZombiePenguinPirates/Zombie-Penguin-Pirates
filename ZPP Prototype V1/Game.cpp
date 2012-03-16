@@ -7,7 +7,8 @@ POINT mappos = {0, 0};
 
 ZOMBIE icon;
 //first set of units
-ZOMBIE blue[units];
+ZOMBIE melee[units];
+ZOMBIE ranged[units];
 //2nd set of units
 ZOMBIE green[units];
 //set of objects
@@ -33,24 +34,24 @@ void initunits()
 	spawnunit = 0;
 	for (int x = 0; x < units; x++)
 	{
-		//blue data
-		blue[x].SetSize(50, 50);
-		blue[x].SetRadius(25);
-		blue[x].SetTeam(4);
-		blue[x].Revive();
-		blue[x].SetMaxHealth(5);
-		blue[x].SetHealth(5);
-		blue[x].Select(false);
+		//ranged data
+		ranged[x].SetSize(50, 50);
+		ranged[x].SetRadius(25);
+		ranged[x].SetTeam(4);
+		ranged[x].Revive();
+		ranged[x].SetMaxHealth(5);
+		ranged[x].SetHealth(5);
+		ranged[x].Select(false);
 		//picture used according to array
-		blue[x].SetPic(0);
-		blue[x].SetPos(-blue[x].GetSize().x, (x + 1) * blue[x].GetSize().y + 150);
+		ranged[x].SetPic(0);
+		ranged[x].SetPos(-ranged[x].GetSize().x, (x + 1) * ranged[x].GetSize().y + 150);
 		//move order set to its current position (cant tell it not to move but can tell it that its target is where it is, bool could change that but adding an if statement isnt needed)
-		blue[x].SetMoveOrder(blue[x].GetPos());
+		ranged[x].SetMoveOrder(ranged[x].GetPos());
 		//size of image used
-		blue[x].SetImageSize(50, 50);
-		blue[x].SetAttackDelay(50);
-		blue[x].SetMinDamage(1);
-		blue[x].SetMaxDamage(1);
+		ranged[x].SetImageSize(50, 50);
+		ranged[x].SetAttackDelay(50);
+		ranged[x].SetMinDamage(1);
+		ranged[x].SetMaxDamage(1);
 		//green data
 		green[x].SetImageSize(50, 50);
 		green[x].SetSize(50, 50);
@@ -67,7 +68,7 @@ void initunits()
 		green[x].SetMinDamage(1);
 		green[x].SetMaxDamage(1);
 	}
-	icon = blue[0];
+	icon = ranged[0];
 	icon.Select(false);
 }
 
@@ -120,7 +121,7 @@ state rungame(bool keys[256], POINT mousedragpos, bool mousedrag, POINT mousepos
 	for (int x = 0; x < units; x++)
 	{
 		//new frame so no collisions yet
-		blue[x].ResetCollision();
+		ranged[x].ResetCollision();
 		green[x].ResetCollision();
 	}
 
@@ -128,19 +129,19 @@ state rungame(bool keys[256], POINT mousedragpos, bool mousedrag, POINT mousepos
 	{
 		for (int y = 0; y < units; y++)
 		{
-			if (!green[y].GetDead() && !blue[x].GetDead())
+			if (!green[y].GetDead() && !ranged[x].GetDead())
 			{
 				//check for collisions with enemy
-				if (blue[x].CollisionCheck(green[y]))
+				if (ranged[x].CollisionCheck(green[y]))
 				{
 					//get damage will get a number for damage but still needs code to ensure it doesnt hit too fast
-					green[y].LoseHealth(blue[x].GetDamage());
-					blue[x].LoseHealth(green[y].GetDamage());
+					green[y].LoseHealth(ranged[x].GetDamage());
+					ranged[x].LoseHealth(green[y].GetDamage());
 				}
 			}
 
 			//check for collisions with team, but not itself
-			if (x != y && !blue[y].GetDead() && !blue[x].GetDead())	blue[x].CollisionCheck(blue[y]);
+			if (x != y && !ranged[y].GetDead() && !ranged[x].GetDead())	ranged[x].CollisionCheck(ranged[y]);
 			if (x != y && !green[y].GetDead() && !green[x].GetDead()) green[x].CollisionCheck(green[y]);
 		}
 	}
@@ -149,7 +150,7 @@ state rungame(bool keys[256], POINT mousedragpos, bool mousedrag, POINT mousepos
 	{
 		for (int y = 0; y < objects; y++)
 		{
-			blue[x].CollisionCheck(scenery[y]);
+			ranged[x].CollisionCheck(scenery[y]);
 			green[x].CollisionCheck(scenery[y]);
 		}
 	}
@@ -157,11 +158,11 @@ state rungame(bool keys[256], POINT mousedragpos, bool mousedrag, POINT mousepos
 	for (int x = 0; x < units; x++)
 	{
 		//if attack order was given before ensure you change move order to its position every time (code will need to be added with the damage so that if it dies attack turns off)
-		if (blue[x].GetAttack()) blue[x].SetMoveOrder(green[blue[x].GetUnitNumb()].GetPos());
+		if (ranged[x].GetAttack()) ranged[x].SetMoveOrder(green[ranged[x].GetUnitNumb()].GetPos());
 		//move unit
-		blue[x].Move();
+		ranged[x].Move();
 
-		if (green[x].GetAttack()) green[x].SetMoveOrder(blue[green[x].GetUnitNumb()].GetPos());
+		if (green[x].GetAttack()) green[x].SetMoveOrder(ranged[green[x].GetUnitNumb()].GetPos());
 		green[x].Move();
 	}	
 
@@ -172,8 +173,8 @@ state rungame(bool keys[256], POINT mousedragpos, bool mousedrag, POINT mousepos
 	}
 	if(SceneWon) 
 	{
-		SetState(main_menu);
-		return main_menu;
+		SetState(GameOver);
+		return GameOver;
 	}
 	else return new_game;
 }
@@ -220,23 +221,25 @@ void mouse(POINT mousedragpos, bool mousedrag, POINT mousepos, bool Lmousedown, 
 				DragSpace(mousedragpos, mousepos);
 				
 				//select all units in area
-				if((DragSize.width + mappos.x > blue[x].GetPos().x && DragSize.x + mappos.x < blue[x].GetPos().x + blue[x].GetSize().x)
-					&& (DragSize.height + mappos.y > blue[x].GetPos().y && DragSize.y + mappos.y < blue[x].GetPos().y + blue[x].GetSize().y))
+				if((DragSize.width + mappos.x > ranged[x].GetPos().x && DragSize.x + mappos.x < ranged[x].GetPos().x + ranged[x].GetSize().x)
+					&& (DragSize.height + mappos.y > ranged[x].GetPos().y && DragSize.y + mappos.y < ranged[x].GetPos().y + ranged[x].GetSize().y))
 				{
-					blue[x].Select(true);
+					if (ranged[x].GetDead()) ranged[x].Select(false);
+					else ranged[x].Select(true);
 				}
-				else blue[x].Select(false);
+				else ranged[x].Select(false);
 			}
 			//otherwise
 			else
 			{
 				//select individual unit (not truely needed since single pixel should still colide with units but coded it anyway)
-				if((mousepos.x + mappos.x > blue[x].GetPos().x && mousepos.x + mappos.x < blue[x].GetPos().x + blue[x].GetSize().x)
-					&& (mousepos.y + mappos.y > blue[x].GetPos().y && mousepos.y + mappos.y < blue[x].GetPos().y + blue[x].GetSize().y))
+				if((mousepos.x + mappos.x > ranged[x].GetPos().x && mousepos.x + mappos.x < ranged[x].GetPos().x + ranged[x].GetSize().x)
+					&& (mousepos.y + mappos.y > ranged[x].GetPos().y && mousepos.y + mappos.y < ranged[x].GetPos().y + ranged[x].GetSize().y))
 				{
-					blue[x].Select(true);
+					if (ranged[x].GetDead()) ranged[x].Select(false);
+					else ranged[x].Select(true);
 				}
-				else blue[x].Select(false);
+				else ranged[x].Select(false);
 			}
 		}
 
@@ -247,7 +250,7 @@ void mouse(POINT mousedragpos, bool mousedrag, POINT mousepos, bool Lmousedown, 
 			{
 				if (spawnunit < 5)
 				{
-					blue[spawnunit].SetMoveOrder(0, blue[spawnunit].GetPos().y);
+					ranged[spawnunit].SetMoveOrder(0, ranged[spawnunit].GetPos().y);
 					spawnunit++;
 				}
 				recentlyplaced = false;
@@ -261,21 +264,23 @@ void mouse(POINT mousedragpos, bool mousedrag, POINT mousepos, bool Lmousedown, 
 		for (int x = 0; x < units; x++)
 		{
 			//if unit selected
-			if(blue[x].GetSelect())
+			if(ranged[x].GetSelect())
 			{
 				//if clicking on enemy
 				if ((mousepos.x + mappos.x > green[x].GetPos().x && mousepos.x + mappos.x < green[x].GetPos().x + green[x].GetSize().x)
 					&& (mousepos.y + mappos.y > green[x].GetPos().y && mousepos.y + mappos.y < green[x].GetPos().y + green[x].GetSize().y))
 				{
 					//attack that unit
-					blue[x].SetAttackOrder(0);
+					//ranged[x].SetAttackOrder(0);
+					if(ranged[x].b == NULL)
+						ranged[x].b = new BULLET(ranged[x].GetPos().x, ranged[x].GetPos().y, green[x].GetPos().x, green[x].GetPos().y);
 				}
 				//otherwise
 				else 
 				{
 					//give move order and stop attacking previous target if any
-					blue[x].SetMoveOrder(mousepos.x + mappos.x, mousepos.y + mappos.y);
-					blue[x].StopAttack();
+					ranged[x].SetMoveOrder(mousepos.x + mappos.x, mousepos.y + mappos.y);
+					ranged[x].StopAttack();
 				}
 			}
 		}
@@ -308,6 +313,20 @@ void drawgame(BUFFER &pBuffer, bool mousedrag)
 	//draw the map
 	drawmap(pBuffer);
 
+	for(int i = 0; i < units; ++i)
+	{
+		if(ranged[i].b != NULL)
+		{
+			ranged[i].b->moveBullet(pBuffer);
+			ranged[i].b->increaseRange();
+			if(ranged[i].b->getRange() == max_bullet_range)
+			{
+				ranged[i].b->~BULLET();
+				ranged[i].b = NULL;
+			}
+		}
+	}
+	
 	for (int y = 0; y < objects; y++)
 	{
 		//draw objects
@@ -317,7 +336,7 @@ void drawgame(BUFFER &pBuffer, bool mousedrag)
 	for (int x = 0; x < units; x++)
 	{
 		//draw units
-		blue[x].Render(pBuffer, mappos);
+		ranged[x].Render(pBuffer, mappos);
 		green[x].Render(pBuffer, mappos);
 	}
 
@@ -326,9 +345,9 @@ void drawgame(BUFFER &pBuffer, bool mousedrag)
 	
 	for (int i=0;i<units;i++)
 	{
-		if (!blue[i].GetDead())
+		if (!ranged[i].GetDead())
 		{
-			Zombie_and_Human_Positions (pBuffer,blue[i], true);
+			Zombie_and_Human_Positions (pBuffer,ranged[i], true);
 		}
 	}
 	

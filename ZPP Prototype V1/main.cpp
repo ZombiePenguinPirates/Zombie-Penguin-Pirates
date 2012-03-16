@@ -83,6 +83,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
 			case main_menu:
 				screen = RunMenu(mousepos, Lmousedown, Rmousedown);
 						drawMenu(gBuffer);
+						if (screen == new_game) initgame();
 				break;
 
 			case new_game:
@@ -118,6 +119,12 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
 						drawMenu5(gBuffer);
 				break;
 
+			case GameOver:
+				screen = RunMenu(mousepos, Lmousedown, Rmousedown);
+						drawMenu8(gBuffer);
+						if (screen == new_game) initgame();
+				break;
+
 			case quit_for_real:
 				game_running = false;
 				break;
@@ -125,12 +132,12 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
 			case in_game_pause:
 				//game_running = false;
 				screen = RunMenu(mousepos, Lmousedown, Rmousedown);
-				drawMenu6(gBuffer);
+						drawMenu6(gBuffer);
 				break;
 
 			case in_game_pause_quit:
 				screen = RunMenu(mousepos, Lmousedown, Rmousedown);
-				drawMenu7(gBuffer);
+						drawMenu7(gBuffer);
 				break;
 			}
 			SwapBackBuffer(gBuffer, FALSE);

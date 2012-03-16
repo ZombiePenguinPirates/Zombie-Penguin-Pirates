@@ -1,4 +1,5 @@
 #include "main.h"
+#include "math.h"
 
 ZOMBIE::ZOMBIE():OBJECT()					//initialise objects part of unit first
 {
@@ -15,6 +16,7 @@ ZOMBIE::ZOMBIE():OBJECT()					//initialise objects part of unit first
 	collision.x = collision.y =	collision.width = collision.height = 0;								//used for collision detection only used internaly
 	collisionside.bot = collisionside.left = collisionside.right = collisionside.top = false;		//used for collision detection only used internaly
 	dead = false;
+	b = NULL;
 }
 
 ZOMBIE::~ZOMBIE()
@@ -331,13 +333,13 @@ int ZOMBIE::GetDamage()
 
 void ZOMBIE::Render(BUFFER &pBuffer, POINT mappos)
 {
-	if (!dead)
-	{
-		//if unit on screen draw unit
-		if ((pos.x + size.x > mappos.x)
+	//if unit on screen draw unit
+	if ((pos.x + size.x > mappos.x)
 			&& (pos.x < mappos.x + WIDTH)
 			&& (pos.y + size.y > mappos.y)
 			&& (pos.y < mappos.y + HEIGHT))
+	{
+		if (!dead)
 		{
 			//draw unit
 			TransparentStretchBitmap(pBuffer, pic, pos.x - mappos.x, pos.y - mappos.y, size.x, size.y, 0, 0,  imagesize.x, imagesize.y);
@@ -353,5 +355,45 @@ void ZOMBIE::Render(BUFFER &pBuffer, POINT mappos)
 				StretchBitmap(pBuffer, 0, pos.x - mappos.x + 1, pos.y + size.y - mappos.y - 3, (size.x - 2) * ((float)health/(float)maxHealth), 3, 0, 0, 1, 1);
 			}
 		}
+		else TransparentStretchBitmap(pBuffer, 4, pos.x - mappos.x, pos.y - mappos.y, size.x, size.y, 0, 0,  50, 50);
 	}
+}
+
+BULLET::BULLET(int positionX, int positionY, int targetX, int targetY)
+{
+	int i = targetX - positionX, j = targetY - positionY;
+	int square = (i * i) + (j * j);
+	float root = sqrt((float)square);
+
+	velocityX = 5 * ((targetX - positionX) / root);
+	velocityY = 5 * ((targetY - positionY) / root );
+
+
+	range = 0;
+	display = LoadABitmap("graphics//UI//enemy.bmp");
+
+	posX = positionX;
+	posY = positionY;
+
+}
+
+void BULLET::moveBullet(BUFFER &pBuffer)
+{
+	posX += velocityX;
+	posY += velocityY;
+		
+	//select bitmap handle
+	SelectObject(pBuffer.hdcBitmap, display);
+
+	//blit bitmap into backbuffer
+	StretchBlt(pBuffer.hdcBack, posX, posY, 4, 4, 
+			   pBuffer.hdcBitmap, 0, 0, 2, 2, SRCCOPY);
+
+	//select old handle to clean up
+	SelectObject(pBuffer.hdcBitmap, pBuffer.hOldBitmap);
+
+}
+
+BULLET::~BULLET()
+{
 }

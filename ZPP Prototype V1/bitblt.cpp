@@ -1,8 +1,8 @@
 #include "main.h"
 
 #define totaltiles		5
-#define totalpics		4
-#define uipics			29
+#define totalpics		5
+#define uipics			22
 #define minimap			6
 
 HBITMAP MiniMap[minimap];
@@ -23,13 +23,15 @@ void loadtiles()
 	BMPW[1] = LoadABitmap("graphics//humans//human w.bmp");
 	BMPW[2] = LoadABitmap("graphics//bench w.bmp");
 	BMPW[3] = LoadABitmap("graphics//background_wall w.bmp");
+	BMPW[4] = LoadABitmap("graphics//blood_guts w.bmp");
 
 	BMPB[0] = LoadABitmap("graphics//zombies//zombie b.bmp");
 	BMPB[1] = LoadABitmap("graphics//humans//human b.bmp");
 	BMPB[2] = LoadABitmap("graphics//bench b.bmp");
-	BMPW[3] = LoadABitmap("graphics//background_wall b.bmp");
+	BMPB[3] = LoadABitmap("graphics//background_wall b.bmp");
+	BMPB[4] = LoadABitmap("graphics//blood_guts b.bmp");
 
-	UIPics[0] = LoadABitmap("graphics//bench b.bmp");
+	UIPics[0] = LoadABitmap("graphics//menu//level_done.bmp");
 	UIPics[1] = LoadABitmap("graphics//menu//main_menu.bmp");		//Greig_Main menu pics		
 	UIPics[2] = LoadABitmap("graphics//menu//new_game.bmp");
 	UIPics[3] = LoadABitmap("graphics//menu//settings.bmp");
@@ -49,6 +51,8 @@ void loadtiles()
 	UIPics[17] = LoadABitmap("graphics//menu//no.bmp");
 	UIPics[18] = LoadABitmap("graphics//menu//audio.bmp");
 	UIPics[19] = LoadABitmap("graphics//menu//game_menu.bmp");
+	UIPics[20] = LoadABitmap("graphics//menu//credits.bmp");
+	UIPics[21] = LoadABitmap("graphics//menu//RETRY.bmp");
 
 	MiniMap[0] = LoadABitmap("graphics//UI//Temp_Mini.bmp");
 	MiniMap[1] = LoadABitmap("graphics//UI//enemy.bmp");

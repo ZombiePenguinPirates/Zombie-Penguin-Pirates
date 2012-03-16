@@ -14,6 +14,7 @@ void drawMenu4(BUFFER &pBuffer);
 void drawMenu5(BUFFER &pBuffer);
 void drawMenu6(BUFFER &pBuffer);
 void drawMenu7(BUFFER &pBuffer);
+void drawMenu8(BUFFER &pBuffer);
 void pause_options(state s);
 
 #endif
