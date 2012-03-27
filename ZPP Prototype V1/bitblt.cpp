@@ -1,11 +1,15 @@
 #include "main.h"
+#include <stdlib.h>
 
 #define totaltiles		5
 #define totalpics		7
 #define uipics			22
 #define minimap			6
 //change this number for the amount of frames
-#define menuanimation	1
+#define menuanimation	91
+
+static int frames = 0;
+static int frames2 = 0;
 
 HBITMAP MenuFrames[menuanimation];
 HBITMAP MiniMap[minimap];
@@ -17,7 +21,99 @@ HBITMAP BMPB[totalpics];
 void loadtiles()
 {
 	//data inputing for you, every frame needs one
-	MenuFrames[0] = LoadABitmap("graphics//BG BMP//bg ani0001.bmp");
+	
+	MenuFrames[1] = LoadABitmap("graphics//bg//bg ani0001.bmp");
+	MenuFrames[2] = LoadABitmap("graphics//bg//bg ani0002.bmp");
+	MenuFrames[3] = LoadABitmap("graphics//bg//bg ani0003.bmp");
+	MenuFrames[4] = LoadABitmap("graphics//bg//bg ani0004.bmp");
+	MenuFrames[5] = LoadABitmap("graphics//bg//bg ani0005.bmp");
+	MenuFrames[6] = LoadABitmap("graphics//bg//bg ani0006.bmp");
+	MenuFrames[7] = LoadABitmap("graphics//bg//bg ani0007.bmp");
+	MenuFrames[8] = LoadABitmap("graphics//bg//bg ani0008.bmp");
+	MenuFrames[9] = LoadABitmap("graphics//bg//bg ani0009.bmp");
+	MenuFrames[10] = LoadABitmap("graphics//bg//bg ani0010.bmp");
+	MenuFrames[11] = LoadABitmap("graphics//bg//bg ani0011.bmp");
+	MenuFrames[12] = LoadABitmap("graphics//bg//bg ani0012.bmp");
+	MenuFrames[13] = LoadABitmap("graphics//bg//bg ani0013.bmp");
+	MenuFrames[14] = LoadABitmap("graphics//bg//bg ani0014.bmp");
+	MenuFrames[15] = LoadABitmap("graphics//bg//bg ani0015.bmp");
+	MenuFrames[16] = LoadABitmap("graphics//bg//bg ani0016.bmp");
+	MenuFrames[17] = LoadABitmap("graphics//bg//bg ani0017.bmp");
+	MenuFrames[18] = LoadABitmap("graphics//bg//bg ani0018.bmp");
+	MenuFrames[19] = LoadABitmap("graphics//bg//bg ani0019.bmp");
+	MenuFrames[20] = LoadABitmap("graphics//bg//bg ani0020.bmp");
+	MenuFrames[21] = LoadABitmap("graphics//bg//bg ani0021.bmp");
+	MenuFrames[22] = LoadABitmap("graphics//bg//bg ani0022.bmp");
+	MenuFrames[23] = LoadABitmap("graphics//bg//bg ani0023.bmp");
+	MenuFrames[24] = LoadABitmap("graphics//bg//bg ani0024.bmp");
+	MenuFrames[25] = LoadABitmap("graphics//bg//bg ani0025.bmp");
+	MenuFrames[26] = LoadABitmap("graphics//bg//bg ani0026.bmp");
+	MenuFrames[27] = LoadABitmap("graphics//bg//bg ani0027.bmp");
+	MenuFrames[28] = LoadABitmap("graphics//bg//bg ani0028.bmp");
+	MenuFrames[29] = LoadABitmap("graphics//bg//bg ani0029.bmp");
+	MenuFrames[30] = LoadABitmap("graphics//bg//bg ani0030.bmp");
+	MenuFrames[31] = LoadABitmap("graphics//bg//bg ani0031.bmp");
+	MenuFrames[32] = LoadABitmap("graphics//bg//bg ani0032.bmp");
+	MenuFrames[33] = LoadABitmap("graphics//bg//bg ani0033.bmp");
+	MenuFrames[34] = LoadABitmap("graphics//bg//bg ani0034.bmp");
+	MenuFrames[35] = LoadABitmap("graphics//bg//bg ani0035.bmp");
+	MenuFrames[36] = LoadABitmap("graphics//bg//bg ani0036.bmp");
+	MenuFrames[37] = LoadABitmap("graphics//bg//bg ani0037.bmp");
+	MenuFrames[38] = LoadABitmap("graphics//bg//bg ani0038.bmp");
+	MenuFrames[39] = LoadABitmap("graphics//bg//bg ani0039.bmp");
+	MenuFrames[40] = LoadABitmap("graphics//bg//bg ani0040.bmp");
+	MenuFrames[41] = LoadABitmap("graphics//bg//bg ani0041.bmp");
+	MenuFrames[42] = LoadABitmap("graphics//bg//bg ani0042.bmp");
+	MenuFrames[43] = LoadABitmap("graphics//bg//bg ani0043.bmp");
+	MenuFrames[44] = LoadABitmap("graphics//bg//bg ani0044.bmp");
+	MenuFrames[45] = LoadABitmap("graphics//bg//bg ani0045.bmp");
+	MenuFrames[46] = LoadABitmap("graphics//bg//bg ani0046.bmp");
+	MenuFrames[47] = LoadABitmap("graphics//bg//bg ani0047.bmp");
+	MenuFrames[48] = LoadABitmap("graphics//bg//bg ani0048.bmp");
+	MenuFrames[49] = LoadABitmap("graphics//bg//bg ani0049.bmp");
+	MenuFrames[50] = LoadABitmap("graphics//bg//bg ani0050.bmp");
+	MenuFrames[51] = LoadABitmap("graphics//bg//bg ani0051.bmp");
+	MenuFrames[52] = LoadABitmap("graphics//bg//bg ani0052.bmp");
+	MenuFrames[53] = LoadABitmap("graphics//bg//bg ani0053.bmp");
+	MenuFrames[54] = LoadABitmap("graphics//bg//bg ani0054.bmp");
+	MenuFrames[55] = LoadABitmap("graphics//bg//bg ani0055.bmp");
+	MenuFrames[56] = LoadABitmap("graphics//bg//bg ani0056.bmp");
+	MenuFrames[57] = LoadABitmap("graphics//bg//bg ani0057.bmp");
+	MenuFrames[57] = LoadABitmap("graphics//bg//bg ani0058.bmp");
+	MenuFrames[58] = LoadABitmap("graphics//bg//bg ani0059.bmp");
+	MenuFrames[60] = LoadABitmap("graphics//bg//bg ani0060.bmp");
+	MenuFrames[61] = LoadABitmap("graphics//bg//bg ani0061.bmp");
+	MenuFrames[62] = LoadABitmap("graphics//bg//bg ani0062.bmp");
+	MenuFrames[63] = LoadABitmap("graphics//bg//bg ani0063.bmp");
+	MenuFrames[64] = LoadABitmap("graphics//bg//bg ani0064.bmp");
+	MenuFrames[65] = LoadABitmap("graphics//bg//bg ani0065.bmp");
+	MenuFrames[66] = LoadABitmap("graphics//bg//bg ani0066.bmp");
+	MenuFrames[67] = LoadABitmap("graphics//bg//bg ani0067.bmp");
+	MenuFrames[68] = LoadABitmap("graphics//bg//bg ani0068.bmp");
+	MenuFrames[69] = LoadABitmap("graphics//bg//bg ani0069.bmp");
+	MenuFrames[70] = LoadABitmap("graphics//bg//bg ani0070.bmp");
+	MenuFrames[71] = LoadABitmap("graphics//bg//bg ani0071.bmp");
+	MenuFrames[72] = LoadABitmap("graphics//bg//bg ani0072.bmp");
+	MenuFrames[73] = LoadABitmap("graphics//bg//bg ani0073.bmp");
+	MenuFrames[74] = LoadABitmap("graphics//bg//bg ani0074.bmp");
+	MenuFrames[75] = LoadABitmap("graphics//bg//bg ani0075.bmp");
+	MenuFrames[76] = LoadABitmap("graphics//bg//bg ani0076.bmp");
+	MenuFrames[77] = LoadABitmap("graphics//bg//bg ani0077.bmp");
+	MenuFrames[78] = LoadABitmap("graphics//bg//bg ani0078.bmp");
+	MenuFrames[79] = LoadABitmap("graphics//bg//bg ani0079.bmp");
+	MenuFrames[80] = LoadABitmap("graphics//bg//bg ani0080.bmp");
+	MenuFrames[81] = LoadABitmap("graphics//bg//bg ani0081.bmp");
+	MenuFrames[82] = LoadABitmap("graphics//bg//bg ani0082.bmp");
+	MenuFrames[83] = LoadABitmap("graphics//bg//bg ani0083.bmp");
+	MenuFrames[84] = LoadABitmap("graphics//bg//bg ani0084.bmp");
+	MenuFrames[85] = LoadABitmap("graphics//bg//bg ani0085.bmp");
+	MenuFrames[86] = LoadABitmap("graphics//bg//bg ani0086.bmp");
+	MenuFrames[87] = LoadABitmap("graphics//bg//bg ani0087.bmp");
+	MenuFrames[88] = LoadABitmap("graphics//bg//bg ani0088.bmp");
+	MenuFrames[89] = LoadABitmap("graphics//bg//bg ani0089.bmp");
+	MenuFrames[90] = LoadABitmap("graphics//bg//bg ani0090.bmp");
+	MenuFrames[91] = LoadABitmap("graphics//bg//bg ani0091.bmp");
+
 
 	tiles[0] = LoadABitmap("graphics//tiles//tile grass.bmp");
 	tiles[1] = LoadABitmap("graphics//tiles//metal_texture_3.bmp");//tile dirt.bmp");
@@ -84,6 +180,7 @@ void DrawMiniMap(BUFFER &pBuffer, int pic, int screenx, int screeny, int width, 
 {
 	//select bitmap handle
 	SelectObject(pBuffer.hdcBitmap, MiniMap[pic]);
+	
 
 	//blit bitmap into backbuffer
 	StretchBlt(pBuffer.hdcBack, screenx, screeny, width, height, 
@@ -96,7 +193,17 @@ void DrawMiniMap(BUFFER &pBuffer, int pic, int screenx, int screeny, int width, 
 void DrawMenu(BUFFER &pBuffer, int pic, int screenx, int screeny, int width, int height, int imagex, int imagey, int imagew, int imageh)
 {
 	//select bitmap handle
-	SelectObject(pBuffer.hdcBitmap, MenuFrames[pic]);
+	//if(frames % 20 == 0)
+	{
+			SelectObject(pBuffer.hdcBitmap, MenuFrames[pic]);
+	}
+	
+	++frames;
+
+	if(frames > 99999)
+	{
+		frames = 0;
+	}
 
 	//blit bitmap into backbuffer
 	StretchBlt(pBuffer.hdcBack, screenx, screeny, width, height, 

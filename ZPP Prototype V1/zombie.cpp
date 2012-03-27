@@ -361,7 +361,7 @@ void ZOMBIE::Render(BUFFER &pBuffer, POINT mappos)
 
 BULLET::BULLET(int positionX, int positionY, int targetX, int targetY)
 {
-	int i = targetX - positionX, j = targetY - positionY;
+	int i = targetX - (positionX + 45), j = targetY - (positionY + 24);
 	int square = (i * i) + (j * j);
 	float root = sqrt((float)square);
 
@@ -372,8 +372,8 @@ BULLET::BULLET(int positionX, int positionY, int targetX, int targetY)
 	range = 0;
 	display = LoadABitmap("graphics//UI//enemy.bmp");
 
-	posX = positionX;
-	posY = positionY;
+	posX = positionX + 45;
+	posY = positionY + 24;
 
 }
 

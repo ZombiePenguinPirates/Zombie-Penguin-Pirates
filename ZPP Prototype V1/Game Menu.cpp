@@ -15,7 +15,7 @@ void initMenu()
 	//added these 3 lines in initgame
 	//only has 1 frame at the moment change the size of the pic array and add the pics to allow more frames then enter the amount of frames here
 	//pic array is in bitblt
-	MainMenuScreen.SetFrames(1);								//main screen
+	MainMenuScreen.SetFrames(91);								//main screen
 	//rest unchanged here
 	MainMenuScreen.SetImageSize(640, 480);
 	MainMenuScreen.SetSize(640, 480);

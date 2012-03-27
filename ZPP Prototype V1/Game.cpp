@@ -260,6 +260,11 @@ state rungame(bool keys[256], POINT mousedragpos, bool mousedrag, POINT mousepos
 		return GameOver;
 	}
 	else return new_game;
+
+	/*for (int i = 0; i < units; ++i)
+	{
+		if(ranged.[i]
+	}*/
 }
 
 //figure out corners for drag area (collision detection is simpler moving from top left to bot right, this changes the co-ords to be that way round)
